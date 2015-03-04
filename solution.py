@@ -1,5 +1,4 @@
 import sys
-import pdb;
 
 def main():
 	cases = []
@@ -19,13 +18,11 @@ def main():
 			elif len(args) is 4:
 				machine = { "day": int(args[0]), "price": int(args[1]), "resale": int(args[2]), "profit": int(args[3]) }
 				case_entry["machines"].append(machine)
-		# append last case_entry
 		cases.append(case_entry)
 		
 	for idx, case in enumerate(cases):
 		c = total_cash(case["machines"], case["cash"], case["days"])
 		print "Case {}: {}".format(idx + 1, c)
-
 
 def total_cash(machines, cash, days):
 	# sort machines by day
@@ -43,8 +40,6 @@ def total_cash(machines, cash, days):
 		if len(owned_machine) is not 0:
 			total_cash += (cur_day - previous_day - 1) * owned_machine["profit"]
 			resale_value = owned_machine["resale"]
-		
-		# pdb.set_trace()
 
 		# filter out candidates we can't afford
 		purchace_candidates = filter(lambda m: m["price"] <= (total_cash + resale_value), purchace_candidates)
@@ -80,7 +75,6 @@ def total_cash(machines, cash, days):
 		total_cash += (days + 1 - cur_day) * owned_machine["profit"]
 
 	return total_cash
-
 
 if __name__ == '__main__': 
   main()
