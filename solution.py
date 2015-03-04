@@ -41,7 +41,7 @@ def total_cash(machines, cash, days):
 		
 		# collect profits from currently owned machine
 		if len(owned_machine) is not 0:
-			total_cash += (cur_day - previous_day) * owned_machine["profit"]
+			total_cash += (cur_day - previous_day - 1) * owned_machine["profit"]
 			resale_value = owned_machine["resale"]
 		
 		# pdb.set_trace()
@@ -67,6 +67,9 @@ def total_cash(machines, cash, days):
 				if best_candidate_utility > current_utility:
 					total_cash += (owned_machine["resale"] - new_machine["price"])
 					owned_machine = new_machine
+				else:
+					# since we did not sell our machine on this day, we get profit
+					total_cash += owned_machine["profit"]
 			else:
 				owned_machine = new_machine
 				total_cash -= owned_machine["price"]
