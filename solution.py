@@ -59,11 +59,11 @@ def total_cash(machines, cash, days):
 			# appear in both utility calculations for the candidate and owned 
 			# machine, we can take them out of the utility calculation
 
-			candidates_utility = map(lambda candidate: (days - cur_day) * candidate["profit"] - candidate["price"] + candidate["resale"], purchace_candidates)
+			candidates_utility = map(lambda candidate: (days + 1 - cur_day) * candidate["profit"] - candidate["price"] + candidate["resale"], purchace_candidates)
 			best_candidate_utility = max(candidates_utility)
 			new_machine = purchace_candidates[candidates_utility.index(best_candidate_utility)]
 			if len(owned_machine) is not 0:
-				current_utility = (days - cur_day) * owned_machine["profit"]
+				current_utility = (days + 1 - cur_day) * owned_machine["profit"]
 				if best_candidate_utility > current_utility:
 					total_cash += (owned_machine["resale"] - new_machine["price"])
 					owned_machine = new_machine
@@ -74,7 +74,7 @@ def total_cash(machines, cash, days):
 		previous_day = cur_day
 	if len(owned_machine) is not 0:
 		total_cash += owned_machine["resale"]
-		total_cash += (days - cur_day) * owned_machine["profit"]
+		total_cash += (days + 1 - cur_day) * owned_machine["profit"]
 
 	return total_cash
 
